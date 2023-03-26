@@ -1,11 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
 const path = require('path');
 
 const mode = process.env.NODE_ENV || 'development';
+const devMode = mode === 'development';
 
-const target = mode === 'development' ? 'web' : 'browserslist';
-const devtool = mode === 'development' ? 'source-map' : false;
+const target = devMode ? 'web' : 'browserslist';
+const devtool = devMode ? 'source-map' : false;
 
 module.exports = {
     entry: './src/index.js',
@@ -31,7 +33,18 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            postcssOptions: {
+                                plugins: ["postcss-preset-env"]
+                            },
+                        },
+                    },
+                ],
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
@@ -48,6 +61,9 @@ module.exports = {
             filename: 'index.html',
         }),
         new webpack.HotModuleReplacementPlugin(),
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+        }),
     ],
     devServer: {
         static: {
