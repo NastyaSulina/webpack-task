@@ -17,6 +17,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
         clean: true,
+        assetModuleFilename: 'assets/[name][ext]'
     },
     devtool,
     target,
@@ -30,6 +31,15 @@ module.exports = {
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
+                use: {
+                    loader: 'image-webpack-loader',
+                    options: {
+                        mozjpeg: {
+                            progressive: true,
+                            quality: 50,
+                        },
+                    }
+                }
             },
             {
                 test: /\.css$/i,
