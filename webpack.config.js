@@ -17,7 +17,7 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
         clean: true,
-        assetModuleFilename: 'assets/[name][ext]'
+        assetModuleFilename: 'assets/[contenthash][ext]'
     },
     devtool,
     target,
@@ -60,7 +60,7 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'fonts/[name][ext]',
+                    filename: 'fonts/[contenthash][ext]',
                 }
             },
         ],
