@@ -2,16 +2,22 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
 
+const mode = process.env.NODE_ENV || 'development';
+
+const target = mode === 'development' ? 'web' : 'browserslist';
+const devtool = mode === 'development' ? 'source-map' : false;
+
 module.exports = {
     entry: './src/index.js',
-    mode: 'development',
+    mode,
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/dist/',
         clean: true,
     },
-    devtool: 'source-map',
+    devtool,
+    target,
     module: {
         rules: [
             {
