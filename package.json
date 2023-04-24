@@ -5,8 +5,8 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --open --config config/builds/dev/webpack.dev.js",
-    "build:dev": "npm install && webpack --config config/builds/dev/webpack.dev.js",
-    "build:prod": "npm install && webpack --config config/builds/prod/webpack.prod.js",
+    "build:dev": "npm install && webpack --node-env=development --config config/builds/dev/webpack.dev.js",
+    "build:prod": "npm install && webpack --node-env=production --config config/builds/prod/webpack.prod.js",
     "prettier": "prettier --write src/**/*.js"
   },
   "keywords": [],

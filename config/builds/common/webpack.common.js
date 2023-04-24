@@ -1,9 +1,7 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpack = require('webpack');
 
 const { scripts_rules, images_rules, styles_rules, fonts_rules, html_rules } = require('../../rules');
+const { HotModuleReplacementPlugin, HtmlWebpackPlugin, MiniCssExtractPlugin } = require('../../plugins');
 
 module.exports = {
     entry: path.resolve(__dirname, '../../../src/index.js'),
@@ -26,13 +24,8 @@ module.exports = {
         ],
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../../../src/index.html'),
-            filename: 'index.html',
-        }),
-        new webpack.HotModuleReplacementPlugin(),
-        new MiniCssExtractPlugin({
-            filename: '[contenthash].css',
-        }),
+        HtmlWebpackPlugin,
+        HotModuleReplacementPlugin,
+        MiniCssExtractPlugin,
     ],
 };
