@@ -32,7 +32,7 @@ module.exports = {
         }),
         new webpack.HotModuleReplacementPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: '[contenthash].css',
         }),
     ],
 };
