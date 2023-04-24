@@ -1,26 +1,19 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
-const path = require('path');
-
-const mode = process.env.NODE_ENV || 'development';
-const devMode = mode === 'development';
-
-const target = devMode ? 'web' : 'browserslist';
-const devtool = devMode ? 'source-map' : false;
 
 module.exports = {
-    entry: './src/index.js',
-    mode,
+    entry: path.resolve(__dirname, '../../../src/index.js'),
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/dist/',
+        path: path.resolve(__dirname, '../../../dist'),
         clean: true,
         assetModuleFilename: 'assets/[contenthash][ext]'
     },
-    devtool,
-    target,
+    resolve: {
+        extensions: ['*', '.js', '.jsx'],
+    },
     module: {
         rules: [
             {
@@ -44,7 +37,7 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: [
-                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
                         loader: "postcss-loader",
@@ -63,14 +56,15 @@ module.exports = {
                     filename: 'fonts/[contenthash][ext]',
                 }
             },
+            {
+                test: /\.html$/i,
+                loader: "html-loader",
+            },
         ],
-    },
-    resolve: {
-        extensions: ['*', '.js', '.jsx'],
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, './src/index.html'),
+            template: path.resolve(__dirname, '../../../src/index.html'),
             filename: 'index.html',
         }),
         new webpack.HotModuleReplacementPlugin(),
@@ -78,13 +72,4 @@ module.exports = {
             filename: 'styles.css',
         }),
     ],
-    devServer: {
-        static: {
-            directory: path.join(__dirname, './dist'),
-        },
-        hot: true,
-        open: true,
-        compress: true,
-        port: 9000,
-    },
-}
+};
