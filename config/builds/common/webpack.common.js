@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { scripts_rules, images_rules, styles_rules, fonts_rules, html_rules } = require('../../rules');
+const { scriptsRules, imagesRules, stylesRules, fontsRules, htmlRules } = require('../../rules');
 const { HotModuleReplacementPlugin, HtmlWebpackPlugin, MiniCssExtractPlugin } = require('../../plugins');
 
 module.exports = {
@@ -16,11 +16,11 @@ module.exports = {
     },
     module: {
         rules: [
-            scripts_rules,
-            images_rules,
-            styles_rules,
-            fonts_rules,
-            html_rules,
+            scriptsRules,
+            imagesRules,
+            stylesRules,
+            fontsRules,
+            htmlRules,
         ],
     },
     plugins: [
